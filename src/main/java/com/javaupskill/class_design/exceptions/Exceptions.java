@@ -4,24 +4,70 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Scanner;
 
 public class Exceptions {
     public static void main(String[] args) {
 
+//        simpleTry();
+        tryWithResources(); // preferred
+
+
+//        try {
+//            validateAge(4);
+//        }
+//        catch (InvalidAgeException | TooYoungException e) {
+//            System.out.println("invalid age");
+//        }
+    }
+
+    private static void tryWithResources() {
+        try (Scanner scanner = new Scanner(new File("test.txt"));) {
+            while (scanner.hasNext()) {
+                System.out.println(scanner.nextLine());
+            }
+        } catch (FileNotFoundException fnfe) {
+            fnfe.printStackTrace();
+        }
+    }
+
+    private static void simpleTry() {
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(new File("test.txt"));
+            while (scanner.hasNext()) {
+                System.out.println(scanner.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
+        }
+    }
+
+    public static boolean validateAge(int age) throws InvalidAgeException, TooYoungException {
+        if (age <= 0) {
+            throw new InvalidAgeException("Age is not valid");
+        } else if (age < 18) {
+            throw new TooYoungException("Age is under 18");
+        }
+        return true;
+    }
+
+    private static void testExceptionTypes() {
         try {
             openMissingFile();
         } catch (FileNotFoundException e) {
             System.out.println("am gasit eroare");
-//            throw new RuntimeException(e);
         } finally {
             System.out.println("finally");
         }
 
 
-
 //        divideByZero();
         System.out.println(sumUntilN(100));
-
     }
 
     // checked exception
