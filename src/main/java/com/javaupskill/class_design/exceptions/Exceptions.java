@@ -10,12 +10,18 @@ public class Exceptions {
     public static void main(String[] args) {
 
 //        simpleTry();
-        tryWithResources(); // preferred
+//        tryWithResources(); // preferred
 
 
-//        try {
-//            validateAge(4);
-//        }
+        try {
+            validateAge(10);
+        }
+        catch (TooYoungException e) {
+            throw new RuntimeException(e);
+        }
+        catch (InvalidAgeException e) {
+            throw new RuntimeException(e);
+        }
 //        catch (InvalidAgeException | TooYoungException e) {
 //            System.out.println("invalid age");
 //        }
