@@ -17,6 +17,15 @@ public class Main {
 
 //        outOfScope();
 //        iterations();
+//        removeInILoop();
+    }
+
+    private static void removeInILoop() {
+        List<String> fruits = getFruits();
+        for (int i = 0; i <= fruits.size(); i++) {
+            fruits.remove(i);
+        }
+        System.out.println(fruits);
     }
 
     private static void outOfScope() {

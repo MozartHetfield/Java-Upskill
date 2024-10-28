@@ -7,7 +7,69 @@ public class Main {
 //        arrayList();
 //        linkedList();
 //        queue();
-        stack();
+//        stack();
+//        set();
+//        hashMap();
+//        hashCodeEqualsContract();
+        sorting();
+    }
+
+    private static void sorting() {
+        List<Student> students = new ArrayList<>();
+        students.add(new Student(25, "Marian"));
+        students.add(new Student(31, "Nicoleta"));
+        System.out.println(students);
+
+        Collections.sort(students, new ReverseAgeStudentComparator());
+        System.out.println(students);
+
+        Collections.sort(students);
+        System.out.println(students);
+    }
+
+    private static void hashCodeEqualsContract() {
+        HashMap<Student, String> students = new HashMap<>();
+        Student s = new Student(22, "Andrei");
+        students.put(s, "value 1");
+        s = new Student(22, "Andrei");
+        students.put(s, "value 2");
+
+        System.out.println(students.size());
+    }
+
+    private static void hashMap() {
+        Map<String, String> idToName = new HashMap<>();
+        idToName.put("3", "Andrei");
+        idToName.put("5", "Monica");
+
+        System.out.println(idToName.get("3"));
+        System.out.println(idToName.get("5"));
+        System.out.println(idToName.get("7")); // null
+
+        idToName.putIfAbsent("5", "George");
+        System.out.println(idToName.get("5"));
+    }
+
+    private static void set() {
+        List<String> animals = Arrays.asList("Owl", "Lion", "Zebra", "Shark");
+
+        Set<String> set1 = new HashSet<>(); // ordered by hashcode
+        Set<String> set2 = new TreeSet<>(); // ordered by their natural order
+        Set<String> set3 = new LinkedHashSet<>(); // ordered in the same way as they were added
+
+        for (String animal : animals) {
+            set1.add(animal);
+            set2.add(animal);
+            set3.add(animal);
+
+            set1.add(animal); // NO duplicates!
+            set2.add(animal);
+            set3.add(animal);
+        }
+
+        System.out.println(set1);
+        System.out.println(set2);
+        System.out.println(set3);
     }
 
     private static void stack() {
