@@ -18,6 +18,11 @@ public class TicketMasterTest {
 
         //then
         assertEquals(TicketType.VIP, ticketType, "Incorrect ticket type returned");
+
+//        if (!TicketType.VIP.equals(ticketType))
+//        {
+//            fail("Incorrect ticket type returned. \nExpected: " + TicketType.VIP + "\nActual: " + ticketType);
+//        }
     }
 
 
