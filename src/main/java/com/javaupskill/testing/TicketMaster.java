@@ -1,21 +1,37 @@
 package com.javaupskill.testing;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class TicketMaster {
     int ID = 333;
 
     Bank bank;
+    User user;
 
-    public TicketMaster(Bank bank) {
+    public TicketMaster(Bank bank, User user) {
         this.bank = bank;
+        this.user = user;
     }
 
     public TicketType buyColdplayTickets(int funds) throws Exception {
+
+        user.buyTicket();
+        user.initTransaction();
+
+        if (bank.isLimitReached(funds))
+        {
+            throw new Exception("Limit reached");
+        }
+
         if (!bank.isPaymentEnabled())
         {
             throw new Exception("Payment provider not reachable");
+        }
+
+        int tax = 5;
+        if (!bank.areFundsAvailable(funds + tax, null))
+        {
+            throw new Exception("Not enough funds");
         }
 
         if (!areColdplayTicketsPurchaseable(LocalDate.now()))
