@@ -1,15 +1,17 @@
 package com.javaupskill.streams;
 
+import com.javaupskill.streams.optional.SessionController;
+import com.javaupskill.streams.optional.UserSession;
 import com.javaupskill.streams.others.ComparableClass;
+import com.javaupskill.testing.User;
 
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.BiFunction;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,7 +21,89 @@ public class Main {
 //        predicate();
 //        basicsStreams();
 //        lazy();
+//        streams_v1();
+//        streamExceptions();
+//        optionalIntro();
+//        optional();
 
+    }
+
+    private static void optional() {
+        SessionController sessionController = new SessionController();
+        Optional<UserSession> userSessionOptional = sessionController.getSessionForUser(2);
+
+        if (userSessionOptional.isPresent())
+        {
+            UserSession userSession = userSessionOptional.get();
+            System.out.println(userSession.getKey());
+        }
+
+        UserSession returedUserSession = userSessionOptional.orElse(getDefaultUserSession());
+        System.out.println(returedUserSession);
+
+        UserSession returnedUserSession2 = userSessionOptional.orElseGet(() ->  {
+            // lazy
+            System.out.println("or else get");
+            return new UserSession(12);
+        });
+        System.out.println(returnedUserSession2);
+    }
+
+    public static UserSession getDefaultUserSession() {
+        System.out.println("or else");
+        return new UserSession(12);
+    }
+
+    private static void optionalIntro() {
+        List<String> products = Arrays.asList("TV", "Iphone 11", "Radio", "Washing machine");
+        Optional<String> foundString = products.stream()
+                .filter(product -> product.length() < 1)
+                .findFirst();
+
+//        String foundString2 = getRandomString(3);
+//
+//        if (foundString != null) { // need to always do null checks
+//            System.out.println(foundString.toUpperCase());
+//        }
+    }
+
+    public static String getRandomString(int i) {
+        if (i > 5) {
+            return null;
+        }
+        return "test";
+    }
+
+    private static void streamExceptions() {
+        List<String> products = Arrays.asList("TV", "Iphone 11", "Radio", "Washing machine");
+        boolean isMatch = products.stream().anyMatch(n -> n.contains("d"));
+        boolean isMatch2 = products.stream().allMatch(n -> n.contains("d"));
+        boolean isMatch3 = products.stream().noneMatch(n -> n.contains("d"));
+//        boolean isMatch3 = products.stream().noneMatch(n -> n.contains("d"));
+
+//        for (String product : products) {
+//            if (product.length() > 4) {
+//                System.out.println(product);
+//            }
+//        }
+
+        List<String> filteredProducts = products.stream()
+                .filter(n -> {
+                    if (n.length() == 1) {
+                        try {
+                            throw new FileNotFoundException("exemplu de exceptie checked"); // checked exc
+                        } catch (FileNotFoundException e) {
+                            throw new RuntimeException(e); // unchecked exc
+                        }
+                    }
+                    System.out.println("test");
+                    return n.length() > 4;
+                })
+                .collect(Collectors.toList());
+        System.out.println(filteredProducts);
+    }
+
+    private static void streams_v1() {
         // string -> string.length
         // show only even numbers
         // without duplicates
@@ -36,6 +120,7 @@ public class Main {
                 .distinct()
                 .sorted()
                 .reduce(0, Integer::sum);
+        //.count()
         System.out.println(sum);
     }
 
