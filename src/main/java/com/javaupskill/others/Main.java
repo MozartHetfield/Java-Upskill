@@ -7,15 +7,29 @@ package com.javaupskill.others;
 //    }
 //}
 
+import com.javaupskill.others.sealed.Holiday;
+
 public final class Main {
     public static void main(String[] args) {
 //        switchExpressions();
 //        final String text = "ceva";
 //        text = "altceva";
+//        records();
+//        textBlocks();
+    }
 
-        records();
+    private static void textBlocks() {
+        //        System.out.print("\n");
+        System.out.print("the command for adding a new line is \\n");
+        System.out.println("C:\\Users\\MyUser\\...");
 
-
+//        String invalidBlockExample = """test""";
+        String textBlockExample = """
+                caracterul pe care vreau sa-l arat este: \n
+                                pot sa pun tab-uri
+                         ; 
+                """;
+        System.out.println(textBlockExample);
     }
 
     private static void records() {
