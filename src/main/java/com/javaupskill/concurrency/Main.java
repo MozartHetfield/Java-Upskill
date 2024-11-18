@@ -17,7 +17,10 @@ public class Main {
 //        future();
 
 //        deadlock();
+        livelock();
+    }
 
+    private static void livelock() throws InterruptedException {
         ReentrantLock fork = new ReentrantLock();
         ReentrantLock knife = new ReentrantLock();
         AtomicBoolean isOneHungry = new AtomicBoolean(true);
