@@ -45,6 +45,8 @@ public class Calculator {
             sum++;
             synchronized (this) {
                 // TODO: it works, but why would you do that?
+                // maybe we have this situation: https://stackoverflow.com/questions/249867/synchronising-twice-on-the-same-object
+                // where we might start the flow with any of the two methods
                 sum++; // maybe another resource
                 // it works to acquire the same lock here from the same thread only
                 // different threads won't be able to access it

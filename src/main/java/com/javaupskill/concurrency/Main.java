@@ -276,7 +276,10 @@ public class Main {
         executorService.shutdown();
 
         // TODO: why isn't the exception thrown here in thread 0
-        // TODO: why is shutdown called before awaitTermination
+        // https://stackoverflow.com/questions/10351926/how-to-catch-exception-thrown-by-another-thread-in-java
+
+        // TODO: why is shutdown called before awaitTermination -> to avoid taking new tasks
+        // https://medium.com/@AlexanderObregon/javas-executorservice-awaittermination-method-explained-76cc9a32cffd
         boolean isExecutorFinished = executorService.awaitTermination(3, TimeUnit.SECONDS);
         if (!isExecutorFinished) {
             // log error
